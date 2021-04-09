@@ -30,7 +30,7 @@ npm login
 npm publish
 ```
 
-## Example Usage
+## Example Usage from npm
 
 Initialize your tracker with the TemplatePlugin:
 
@@ -44,10 +44,25 @@ newTracker('sp1', '{{collector}}', { plugins: [ TemplatePlugin() ] }); // Also s
 Then use the available functions from this package to track to all trackers which have been initialized with this plugin:
 
 ```js
-import { enableMyContext, trackMyEvent } from '@snowplow/browser-plugin-consent';
+import { enableMyContext, trackMyEvent } from '@snowplow/browser-plugin-advanced-template';
 
 enableMyContext({ property: 'something' });
 trackMyEvent({ eventProp: 'value' });
+```
+
+## Example Usage with tag based tracker
+
+Assuming `sp.js` or `sp.lite.js` has been loaded on `window.snowplow`, and this plugin is published on npm:
+
+```js
+window.snowplow('addPlugin', 
+  "https://cdn.jsdelivr.net/npm/snowplow-browser-plugin-advanced-template@latest/dist/index.umd.min.js",
+  ["snowplowAdvancedTemplate", "TemplatePlugin"]
+);
+
+window.snowplow('enableMyContext', { property: 'something' });
+window.snowplow('trackMyEvent', { eventProp: 'value' });
+);
 ```
 
 ## Copyright and license
